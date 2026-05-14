@@ -26,11 +26,9 @@ export default function AllRecipes(props) {
     return (
         <div>
             <h1>Welcome to Badger Recipes!</h1>
-            recipes ?{" "}
-            {recipes.map((r) => (
-                <Recipe key={r.name} {...r} />
-            ))}{" "}
-            : <div></div>
+            {recipes.length > 0 ?
+                recipes.map((r) => <Recipe key={r.name} {...r} />)
+            :   <p>Still Loading...</p>}
         </div>
     );
 }
