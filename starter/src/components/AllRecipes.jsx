@@ -5,10 +5,12 @@ import Stopwatch from "../utils/Stopwatch";
 
 Stopwatch.start();
 
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Pagination } from "react-bootstrap";
+
 export default function AllRecipes(props) {
     // Is there a better way to do this? We'll explore this today!
     const [recipes, setRecipes] = useState([]);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         // Which fetch will complete first? No one knows!
@@ -30,7 +32,7 @@ export default function AllRecipes(props) {
             <Container>
                 <Row>
                     {recipes.length > 0 ? (
-                        recipes.map((r) => (
+                        recipes.slice((page - 1) * 3, page * 3).map((r) => (
                             <Col xs={12} md={6} lg={3} key={r.name}>
                                 <Recipe {...r} />
                             </Col>
@@ -40,6 +42,14 @@ export default function AllRecipes(props) {
                     )}
                 </Row>
             </Container>
+            <Pagination>
+                <Pagination.Item active={page === 1} onClick={() => setPage(1)}>
+                    1
+                </Pagination.Item>
+                <Pagination.Item active={page === 2} onClick={() => setPage(2)}>
+                    2
+                </Pagination.Item>
+            </Pagination>
         </div>
     );
 }
